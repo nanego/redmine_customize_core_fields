@@ -1,0 +1,34 @@
+<% back_url = []
+   back_url << [l(:field_core_fields), core_fields_path]
+   back_url << core_field_title(@field.identifier)
+%>
+<%= title(*back_url) %>
+
+<%= form_for :core_field, :url => core_field_path(id: @field.identifier), :html => {:method => :put, :id => 'core_field_form'} do |f| %>
+
+  <div class="box tabular">
+    <p>
+      <label><%= l(:field_visible) %></label>
+      <label class="block">
+        <%= radio_button_tag 'core_field[visible]', 1, @field.visible?, :id => 'core_field_visible_on',
+                             :data => {:disables => '.core_field_role input'} %>
+        <%= l(:label_visibility_public) %>
+      </label>
+      <label class="block">
+        <%= radio_button_tag 'core_field[visible]', 0, !@field.visible?, :id => 'core_field_visible_off',
+                             :data => {:enables => '.core_field_role input'} %>
+        <%= l(:label_visibility_roles) %>:
+      </label>
+      <% Role.givable.sorted.each do |role| %>
+        <label class="block core_field_role" style="padding-left:2em;">
+          <%= check_box_tag 'core_field[role_ids][]', role.id, @field.roles.include?(role), :id => nil %>
+          <%= role.name %>
+        </label>
+      <% end %>
+      <%= hidden_field_tag 'core_field[role_ids][]', '' %>
+    </p>
+  </div>
+
+  <p><%= submit_tag l(:button_save) %></p>
+
+<% end %>

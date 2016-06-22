@@ -1,2 +1,1 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+resources :core_fields, :only => [:index, :edit, :update]

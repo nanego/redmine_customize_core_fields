@@ -1,0 +1,25 @@
+<%= title l(:field_core_fields) %>
+
+<% if @fields.present? %>
+  <table class="list">
+    <thead><tr>
+      <th><%=l(:field_name)%></th>
+      <th><%=l(:visible_by_all_roles)%></th>
+    </tr></thead>
+    <tbody>
+    <% @fields.each do |field| -%>
+      <% back_url = core_fields_path %>
+      <% persisted_core_field = CoreField.find_by_identifier(field) %>
+      <tr class="<%= cycle("odd", "even") %>">
+        <td class="name">
+          <%= link_to core_field_title(field), edit_core_field_path(field) %>
+        </td>
+        <td>
+          <%= checked_image (persisted_core_field.present? ? persisted_core_field.visible : true) %></td>
+      </tr>
+    <% end; reset_cycle %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>

@@ -1,3 +1,3 @@
-# Redmine plugin - Let's customize standard fields
+# Redmine plugin - Let's customize core fields
 
 
