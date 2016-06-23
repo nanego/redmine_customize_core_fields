@@ -4,7 +4,7 @@ class CoreField < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => "core_fields_roles", :foreign_key => "core_field_id"
   acts_as_list
 
-  safe_attributes 'identifier' #, 'visible', 'role_ids'
+  safe_attributes 'identifier'
 
   attr_protected :id
 
@@ -16,7 +16,7 @@ class CoreField < ActiveRecord::Base
 
   scope :not_visible, lambda {|project|
     user = User.current
-    if user.memberships.any?
+    if user.memberships.any? && project.present?
       where("#{table_name}.visible = ? AND #{table_name}.id NOT IN (SELECT DISTINCT cfr.core_field_id FROM #{Member.table_name} m" +
                 " INNER JOIN #{MemberRole.table_name} mr ON mr.member_id = m.id" +
                 " INNER JOIN #{table_name_prefix}core_fields_roles#{table_name_suffix} cfr ON cfr.role_id = mr.role_id" +
