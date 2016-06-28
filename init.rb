@@ -5,7 +5,6 @@ Redmine::Plugin.register :redmine_customize_core_fields do
   version '1.0.0'
   url 'https://github.com/nanego/redmine_customize_core_fields'
   author_url 'https://github.com/nanego'
-  requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
   requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.4' if Rails.env.test?
   menu :admin_menu, :redmine_customize_core_fields, {:controller => 'core_fields', :action => 'index' }, :after => :custom_fields, :caption => :field_core_fields
 end
