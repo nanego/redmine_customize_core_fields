@@ -1,3 +1,4 @@
 #admin-menu a.redmine-customize-core-fields {
     background-image: url(../../../images/textfield.png);
 }
+form .attributes select { max-width: 40em; }

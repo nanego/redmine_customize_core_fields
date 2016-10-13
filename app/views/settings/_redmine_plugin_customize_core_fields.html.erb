@@ -1,0 +1,9 @@
+<div>
+  <span colspan="2" style="text-align: left;font-weight: bold;"><%= l(:override_issue_form) %> :</span>
+  <span>
+    <%= radio_button_tag "settings[override_issue_form]", true, Setting['plugin_redmine_customize_core_fields']['override_issue_form'] == 'true', :id => "override_issue_form" %>
+    <%= l(:general_text_Yes) %>
+    <%= radio_button_tag "settings[override_issue_form]", false, Setting['plugin_redmine_customize_core_fields']['override_issue_form'] == 'false', :id => "override_issue_form" %>
+    <%= l(:general_text_No) %>
+  </span>
+</div>

@@ -1,3 +1,4 @@
 # English strings go here for Rails i18n
 en:
   visible_by_all_roles: "Visible by all roles"
+  override_issue_form: "Customize issue form ? "

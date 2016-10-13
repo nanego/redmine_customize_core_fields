@@ -2,7 +2,7 @@ class CoreField < ActiveRecord::Base
   include Redmine::SafeAttributes
 
   has_and_belongs_to_many :roles, :join_table => "core_fields_roles", :foreign_key => "core_field_id"
-  acts_as_list
+  acts_as_positioned
 
   safe_attributes 'identifier'
 
@@ -26,5 +26,11 @@ class CoreField < ActiveRecord::Base
       where(:visible => false)
     end
   }
+
+  scope :sorted, lambda { order(:position) }
+
+  def to_s
+    identifier
+  end
 
 end
