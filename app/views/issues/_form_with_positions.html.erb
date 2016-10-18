@@ -4,6 +4,10 @@
 
   <div id="attributes" class="attributes">
 
+    <% if @issue.safe_attribute? 'custom_field_values' %>
+      <%= render :partial => 'issues/form_custom_fields' %>
+    <% end %>
+
     <% CoreField.sorted.each do |core_field|
       case core_field.identifier
 
@@ -141,13 +145,8 @@
             <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
           <% end %>
 
-
         <% end %>
 
-    <% end %>
-
-    <% if @issue.safe_attribute? 'custom_field_values' %>
-      <%= render :partial => 'issues/form_custom_fields' %>
     <% end %>
 
     <% include_calendar_headers_tags %>
