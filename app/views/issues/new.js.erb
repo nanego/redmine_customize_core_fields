@@ -1,0 +1,5 @@
+<% if Setting['plugin_redmine_customize_core_fields']['override_issue_form'] == 'true' %>
+  replaceIssueFormWith('<%= escape_javascript(render :partial => 'issues/form_with_positions') %>');
+<% else %>
+  replaceIssueFormWith('<%= escape_javascript(render :partial => 'issues/form') %>');
+<% end %>
