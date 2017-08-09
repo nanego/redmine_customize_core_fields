@@ -1,0 +1,4 @@
+# German strings go here for Rails i18n
+de:
+  visible_by_all_roles: "Für alle Rollen sichtbar"
+  override_issue_form: "Ticket-Formular anpassen"
