@@ -2,11 +2,21 @@
   <%= call_hook(:view_issues_form_details_top, { :issue => @issue, :form => f }) %>
   <%= hidden_field_tag 'form_update_triggered_by', '' %>
 
-  <div id="attributes" class="attributes">
+  <div id="attributes" class="attributes" style="display: grid;">
 
+    <% if Setting['plugin_redmine_customize_core_fields']['display_custom_fields_first'] == 'true'
+      sort_index = +1
+    else
+      sort_index = -1
+    end %>
+
+    <div style="grid-row: 2;">
     <% if @issue.safe_attribute? 'custom_field_values' %>
       <%= render :partial => 'issues/form_custom_fields' %>
     <% end %>
+    </div>
+
+    <div style="grid-row: <%= 2+sort_index %>;">
 
     <% CoreField.sorted.each do |core_field|
       case core_field.identifier
@@ -148,6 +158,8 @@
         <% end %>
 
     <% end %>
+
+    </div>
 
     <% include_calendar_headers_tags %>
 

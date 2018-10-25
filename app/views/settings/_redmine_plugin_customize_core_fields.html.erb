@@ -7,3 +7,15 @@
     <%= l(:general_text_No) %>
   </span>
 </div>
+
+<% if Setting['plugin_redmine_customize_core_fields']['override_issue_form'] == 'true' %>
+  <div>
+    <span colspan="2" style="text-align: left;font-weight: bold;"><%= l(:display_custom_fields_first) %> :</span>
+    <span>
+      <%= radio_button_tag "settings[display_custom_fields_first]", true, Setting['plugin_redmine_customize_core_fields']['display_custom_fields_first'] == 'true', :id => "display_custom_fields_first" %>
+      <%= l(:general_text_Yes) %>
+      <%= radio_button_tag "settings[display_custom_fields_first]", false, Setting['plugin_redmine_customize_core_fields']['display_custom_fields_first'] == 'false', :id => "display_custom_fields_first" %>
+      <%= l(:general_text_No) %>
+    </span>
+  </div>
+<% end %>

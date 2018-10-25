@@ -2,3 +2,4 @@
 fr:
   visible_by_all_roles: "Visible par tous les rôles"
   override_issue_form: "Prendre en compte les positions des champs dans le formulaire des demandes ?"
+  display_custom_fields_first: "Afficher les champs personnalisés en premier dans le formulaire ?"
