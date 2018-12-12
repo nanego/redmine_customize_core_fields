@@ -4,8 +4,8 @@ class CoreFieldsController < ApplicationController
 
   layout 'admin'
 
-  before_filter :require_admin
-  before_filter :find_core_field, :only => [:edit, :update]
+  before_action :require_admin
+  before_action :find_core_field, :only => [:edit, :update]
 
   def index
     respond_to do |format|
@@ -27,18 +27,19 @@ class CoreFieldsController < ApplicationController
   end
 
   def update
-    if @field.update_attributes(params[:core_field])
+    @field.safe_attributes = params[:core_field]
+    if @field.save
       respond_to do |format|
         format.html {
           flash[:notice] = l(:notice_successful_update)
           redirect_back_or_default edit_core_field_path(@field)
         }
-        format.js { render :nothing => true }
+        format.js { head 200 }
       end
     else
       respond_to do |format|
         format.html { render :action => 'edit' }
-        format.js { render :nothing => true, :status => 422 }
+        format.js { head 422 }
       end
     end
   end

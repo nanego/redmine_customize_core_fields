@@ -10,7 +10,7 @@
     <tbody>
     <% @fields.each do |field| -%>
       <% back_url = core_fields_path %>
-      <tr class="<%= cycle("odd", "even") %>">
+      <tr>
         <td class="name">
           <%= link_to core_field_title(field), edit_core_field_path(field) %>
         </td>

@@ -4,9 +4,7 @@ class CoreField < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => "core_fields_roles", :foreign_key => "core_field_id"
   acts_as_positioned
 
-  safe_attributes 'identifier'
-
-  attr_protected :id
+  safe_attributes :identifier, :id, :position
 
   after_save do |field|
     if field.visible_changed? && field.visible

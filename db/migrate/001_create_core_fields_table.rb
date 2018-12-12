@@ -1,4 +1,4 @@
-class CreateCoreFieldsTable < ActiveRecord::Migration
+class CreateCoreFieldsTable < ActiveRecord::Migration[4.2]
 
   def self.up
     create_table 'core_fields', :force => true do |t|

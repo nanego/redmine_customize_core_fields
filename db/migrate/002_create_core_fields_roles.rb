@@ -1,4 +1,4 @@
-class CreateCoreFieldsRoles < ActiveRecord::Migration
+class CreateCoreFieldsRoles < ActiveRecord::Migration[4.2]
   def self.up
     create_table :core_fields_roles, :id => false do |t|
       t.column :core_field_id, :integer, :null => false
