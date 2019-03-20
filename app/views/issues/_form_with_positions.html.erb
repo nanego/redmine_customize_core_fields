@@ -173,9 +173,9 @@
 <% heads_for_wiki_formatter %>
 
 <%= javascript_tag do %>
-$(document).ready(function(){
-  $("#issue_tracker_id, #issue_status_id").each(function(){
-    $(this).val($(this).find("option[selected=selected]").val())
+  $(document).ready(function(){
+    $("#issue_tracker_id, #issue_status_id").each(function(){
+      $(this).val($(this).find("option[selected=selected]").val())
+    })
   })
-})
 <% end %>
