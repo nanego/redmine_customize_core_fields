@@ -4,7 +4,7 @@ describe CoreField do
 
   fixtures :roles, :projects,
            :trackers, :issue_statuses,
-           :issues
+           :issues, :members, :users
 
   describe 'create and destroy' do
     it 'creates a record for the given core field' do
