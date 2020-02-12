@@ -1,6 +1,5 @@
 ru:
   project_module_customize_core_fields: Видимость стандартных полей
-
   visible_by_all_roles: Видно всем ролям
   override_issue_form: Изменять форму редактирования задачи?
   display_custom_fields_first: Отображать настраиваемые поля на форме первыми?
