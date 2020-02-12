@@ -3,5 +3,5 @@ en:
   project_module_customize_core_fields: Core fields visibility         
 
   visible_by_all_roles: "Visible by all roles"
-  override_issue_form: "Customize issue form?"
-  display_custom_fields_first: "Display custom fields first in form?"
+  override_issue_form: "Customize issue form"
+  display_custom_fields_first: "Display custom fields first in form"
