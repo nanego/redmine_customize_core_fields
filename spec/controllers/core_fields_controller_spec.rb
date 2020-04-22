@@ -2,10 +2,11 @@ require "spec_helper"
 
 describe CoreFieldsController, :type => :controller do
 
-  fixtures :roles #, :issues, :users, :issue_statuses, :projects, :projects_trackers, :trackers, :enumerations
+  fixtures :roles, :users
 
   before do
     @request.session[:user_id] = 1 # Admin
+    User.current = User.find(1)
     Setting.default_language = 'en'
     @field = CoreField.find_or_create_by!(identifier: 'description', visible: true)
   end
