@@ -20,7 +20,22 @@ describe CoreField do
   end
 
   describe 'core fields visibility' do
-    it 'tests visibile scope with non admin user' do
+    it 'tests visibility scope with admin user' do
+      CoreField.delete_all
+      fields = [
+          CoreField.create!(identifier: 'assigned_to_id', :visible => true),
+          CoreField.create!(identifier: 'project_id', :visible => false),
+          CoreField.create!(identifier: 'category_id', :visible => false, :role_ids => [1, 2]),
+          CoreField.create!(identifier: 'tracker_id', :visible => false, :role_ids => [2, 3]),
+      ]
+      user = User.first # user_id: 1
+      User.current = user
+      project = Project.find_by_id(1)
+      project.enable_module! 'customize_core_fields'
+      expect(CoreField.not_visible(project).order("id").to_a).to eq []
+    end
+
+    it 'tests visibility scope with non admin user' do
       CoreField.delete_all
       fields = [
           CoreField.create!(identifier: 'assigned_to_id', :visible => true),
@@ -30,7 +45,9 @@ describe CoreField do
       ]
       membership = Member.first # user_id: 2, project_id: 1, roles: [1]
       User.current = membership.user
-      expect(CoreField.not_visible(membership.project).order("id").to_a).to eq [fields[1], fields[3]]
+      project = membership.project
+      project.enable_module! 'customize_core_fields'
+      expect(CoreField.not_visible(project).order("id").to_a).to eq [fields[1], fields[3]]
     end
 
     it 'tests visibility with anonymous user' do
@@ -42,7 +59,23 @@ describe CoreField do
           CoreField.create!(identifier: 'tracker_id', :visible => false, :role_ids => [2, 3]),
       ]
       User.current = User.anonymous
-      expect(CoreField.not_visible(Project.find_by_id(1)).order("id").to_a).to eq [fields[1], fields[2], fields[3]]
+      project = Project.find_by_id(1)
+      project.enable_module! 'customize_core_fields'
+      expect(CoreField.not_visible(project).order("id").to_a).to eq [fields[1], fields[2], fields[3]]
+    end
+
+    it 'tests visibility with disabled module' do
+      CoreField.delete_all
+      fields = [
+          CoreField.create!(identifier: 'assigned_to_id', :visible => true),
+          CoreField.create!(identifier: 'project_id', :visible => false),
+          CoreField.create!(identifier: 'category_id', :visible => false, :role_ids => [1, 2]),
+          CoreField.create!(identifier: 'tracker_id', :visible => false, :role_ids => [2, 3]),
+      ]
+      User.current = User.anonymous
+      project = Project.find_by_id(1)
+      project.disable_module! 'customize_core_fields'
+      expect(CoreField.not_visible(project).order("id").to_a).to eq []
     end
   end
 
