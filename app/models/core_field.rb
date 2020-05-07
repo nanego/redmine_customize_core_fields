@@ -12,18 +12,23 @@ class CoreField < ActiveRecord::Base
     end
   end
 
-  scope :not_visible, lambda {|project|
-    user = User.current
-    if user.memberships.any? && project.present?
-      where("#{table_name}.visible = ? AND #{table_name}.id NOT IN (SELECT DISTINCT cfr.core_field_id FROM #{Member.table_name} m" +
+  scope :not_visible, lambda {|project, user = nil|
+    user ||= User.current
+    return none if user.admin? or (project.present? and !project.module_enabled?("customize_core_fields"))
+    chain = where visible: false
+    if project.present? 
+      chain = chain.where("#{table_name}.id NOT IN (SELECT DISTINCT cfr.core_field_id FROM #{Member.table_name} m" +
                 " INNER JOIN #{MemberRole.table_name} mr ON mr.member_id = m.id" +
                 " INNER JOIN #{table_name_prefix}core_fields_roles#{table_name_suffix} cfr ON cfr.role_id = mr.role_id" +
                 " WHERE m.user_id = ? AND m.project_id = ?)",
-            false, user.id, project.id)
-    else
-      where(:visible => false)
+            user.id, project.id)
     end
+    chain
   }
+
+  def self.not_visible_identifiers(project, user = nil)
+    not_visible(project, user).pluck(:identifier)
+  end
 
   scope :sorted, lambda { order(:position) }
 
