@@ -42,7 +42,8 @@
 
           <% if @issue.safe_attribute?('tracker_id') || (@issue.persisted? && @issue.tracker_id_changed?) %>
             <p><%= f.select :tracker_id, trackers_options_for_select(@issue), {:required => true},
-                            :onchange => "updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)" %></p>
+                            :onchange => "updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)",
+                            :title => @issue.tracker.description %></p>
           <% end %>
 
         <% when 'subject' %>
