@@ -18,7 +18,6 @@ end
 
 # Custom patches
 require_dependency 'redmine_customize_core_fields/hooks'
-require_dependency 'redmine_customize_core_fields/gantt_helper_patch'
 Rails.application.config.to_prepare do
   require_dependency 'redmine_customize_core_fields/issue_patch'
   require_dependency 'redmine_customize_core_fields/journal_patch'

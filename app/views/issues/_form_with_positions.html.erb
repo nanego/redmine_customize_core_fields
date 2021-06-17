@@ -6,27 +6,28 @@
   <div id="attributes" class="attributes" style="display: grid;">
 
     <% if Setting['plugin_redmine_customize_core_fields']['display_custom_fields_first'] == 'true'
-      sort_index = +1
-    else
-      sort_index = -1
-    end %>
+         sort_index = +1
+       else
+         sort_index = -1
+       end %>
 
     <div style="grid-row: 2;">
-    <% if @issue.safe_attribute? 'custom_field_values' %>
-      <%= render :partial => 'issues/form_custom_fields' %>
-    <% end %>
+      <% if @issue.safe_attribute? 'custom_field_values' %>
+        <%= render :partial => 'issues/form_custom_fields' %>
+      <% end %>
     </div>
 
-    <div style="grid-row: <%= 2+sort_index %>;">
+    <div style="grid-row: <%=2+sort_index%>;">
 
-    <% CoreField.sorted.each do |core_field|
-      case core_field.identifier
+      <% CoreField.sorted.each do |core_field|
+        case core_field.identifier
 
-         when 'is_private' %>
+        when 'is_private' %>
 
           <% if @issue.safe_attribute? 'is_private' %>
             <p id="issue_is_private_wrap">
-              <%= f.check_box :is_private, :no_label => true %><label class="inline" for="issue_is_private" id="issue_is_private_label"><%= l(:field_is_private) %></label>
+              <%= f.check_box :is_private, :no_label => true %>
+              <label class="inline" for="issue_is_private" id="issue_is_private_label"><%= l(:field_is_private) %></label>
             </p>
           <% end %>
 
@@ -34,14 +35,14 @@
 
           <% projects = @issue.allowed_target_projects(User.current, @project) %>
           <% if (@issue.safe_attribute?('project_id') || @issue.project_id_changed?) && (@project.nil? || projects.length > 1 || @issue.copy?) %>
-            <p><%= f.select :project_id, project_tree_options_for_select(projects, :selected => @issue.project), {:required => true},
+            <p><%= f.select :project_id, project_tree_options_for_select(projects, :selected => @issue.project), { :required => true },
                             :onchange => "updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)" %></p>
           <% end %>
 
         <% when 'tracker_id' %>
 
           <% if @issue.safe_attribute?('tracker_id') || (@issue.persisted? && @issue.tracker_id_changed?) %>
-            <p><%= f.select :tracker_id, trackers_options_for_select(@issue), {:required => true},
+            <p><%= f.select :tracker_id, trackers_options_for_select(@issue), { :required => true },
                             :onchange => "updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)",
                             :title => @issue.tracker.description %></p>
           <% end %>
@@ -73,7 +74,7 @@
         <% when 'status_id' %>
 
           <% if @issue.safe_attribute?('status_id') && @allowed_statuses.present? %>
-            <p><%= f.select :status_id, (@allowed_statuses.collect {|p| [p.name, p.id]}), {:required => true},
+            <p><%= f.select :status_id, (@allowed_statuses.collect { |p| [p.name, p.id] }), { :required => true },
                             :onchange => "updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)" %></p>
             <%= hidden_field_tag 'was_default_status', @issue.status_id, :id => nil if @issue.status == @issue.default_status %>
           <% else %>
@@ -83,19 +84,24 @@
         <% when 'priority_id' %>
 
           <% if @issue.safe_attribute? 'priority_id' %>
-            <p><%= f.select :priority_id, (@priorities.collect {|p| [p.name, p.id]}), {:required => true} %></p>
+            <p><%= f.select :priority_id, (@priorities.collect { |p| [p.name, p.id] }), { :required => true } %></p>
           <% end %>
 
         <% when 'assigned_to_id' %>
 
           <% if @issue.safe_attribute? 'assigned_to_id' %>
-            <p><%= f.select :assigned_to_id, principals_options_for_select(@issue.assignable_users, @issue.assigned_to), :include_blank => true, :required => @issue.required_attribute?('assigned_to_id') %></p>
+            <p>
+              <%= f.select :assigned_to_id, principals_options_for_select(@issue.assignable_users, @issue.assigned_to), :include_blank => true, :required => @issue.required_attribute?('assigned_to_id') %>
+              <% if @issue.assignable_users.include?(User.current) %>
+                <a class="assign-to-me-link<%= ' hidden' if @issue.assigned_to_id == User.current.id %>" href="#" data-id="<%= User.current.id %>"><%= l(:label_assign_to_me) %></a>
+              <% end %>
+            </p>
           <% end %>
 
         <% when 'category_id' %>
 
           <% if @issue.safe_attribute?('category_id') && @issue.project.issue_categories.any? %>
-            <p><%= f.select :category_id, (@issue.project.issue_categories.collect {|c| [c.name, c.id]}), {:include_blank => true, :required => @issue.required_attribute?('category_id')}, :onchange => ("updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)" if @issue.new_record?) %>
+            <p><%= f.select :category_id, (@issue.project.issue_categories.collect { |c| [c.name, c.id] }), { :include_blank => true, :required => @issue.required_attribute?('category_id') }, :onchange => ("updateIssueFrom('#{escape_javascript update_issue_form_path(@project, @issue)}', this)" if @issue.new_record?) %>
               <%= link_to(l(:label_issue_category_new),
                           new_project_issue_category_path(@issue.project),
                           :remote => true,
@@ -155,12 +161,12 @@
         <% when 'done_ratio' %>
 
           <% if @issue.safe_attribute?('done_ratio') && Issue.use_field_for_done_ratio? %>
-            <p><%= f.select :done_ratio, ((0..10).to_a.collect {|r| ["#{r*10} %", r*10] }), :required => @issue.required_attribute?('done_ratio') %></p>
+            <p><%= f.select :done_ratio, ((0..10).to_a.collect { |r| ["#{r * 10} %", r * 10] }), :required => @issue.required_attribute?('done_ratio') %></p>
           <% end %>
 
-      <% end %>
+        <% end %>
 
-    <% end %>
+      <% end %>
 
     </div>
 
@@ -174,9 +180,32 @@
 <% heads_for_wiki_formatter %>
 
 <%= javascript_tag do %>
+  // Just added a CDATA section so the content is not modified by Deface when overriding this file
+  //<![CDATA[
   $(document).ready(function(){
-    $("#issue_tracker_id, #issue_status_id").each(function(){
-      $(this).val($(this).find("option[selected=selected]").val())
-    })
-  })
+  $("#issue_tracker_id, #issue_status_id").each(function(){
+  $(this).val($(this).find("option[selected=selected]").val());
+  });
+  $(".assign-to-me-link").click(function(event){
+  event.preventDefault();
+  var element = $(event.target);
+  $('#issue_assigned_to_id').val(element.data('id'));
+  element.hide();
+  });
+  $('#issue_assigned_to_id').change(function(event){
+  var assign_to_me_link = $(".assign-to-me-link");
+
+  if (assign_to_me_link.length > 0) {
+  var user_id = $(event.target).val();
+  var current_user_id = assign_to_me_link.data('id');
+
+  if (user_id == current_user_id) {
+  assign_to_me_link.hide();
+  } else {
+  assign_to_me_link.show();
+  }
+  }
+  });
+  });
+  //]]>
 <% end %>
