@@ -178,10 +178,9 @@
 <% end %>
 
 <% heads_for_wiki_formatter %>
+<%= heads_for_auto_complete(@issue.project) %>
 
 <%= javascript_tag do %>
-  // Just added a CDATA section so the content is not modified by Deface when overriding this file
-  //<![CDATA[
   $(document).ready(function(){
   $("#issue_tracker_id, #issue_status_id").each(function(){
   $(this).val($(this).find("option[selected=selected]").val());
@@ -207,5 +206,5 @@
   }
   });
   });
-  //]]>
 <% end %>
+
