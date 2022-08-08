@@ -1,6 +1,6 @@
 class CoreFieldsController < ApplicationController
 
-  CORE_FIELDS_ALL = Tracker::CORE_FIELDS_ALL.freeze
+  CORE_FIELDS_ALL = Tracker::CORE_FIELDS_ALL + %w(status_id).freeze
 
   layout 'admin'
 
@@ -10,11 +10,10 @@ class CoreFieldsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @fields_identifiers = CORE_FIELDS_ALL + %w(status_id).freeze
-        @fields_identifiers.each_with_index do |field_identifier, index|
+        CORE_FIELDS_ALL.each_with_index do |field_identifier, index|
           field = CoreField.find_or_create_by!(:identifier => field_identifier)
           if field.position.blank?
-            field.position = index+1
+            field.position = index + 1
             field.save
           end
         end
@@ -51,7 +50,7 @@ class CoreFieldsController < ApplicationController
       @field = CoreField.find_by_id(params[:id])
       render_404 unless @field.present?
     else
-      field_identifier = CORE_FIELDS_ALL.select{ |f| f==params[:id] }.first
+      field_identifier = CORE_FIELDS_ALL.select { |f| f == params[:id] }.first
       render_404 unless field_identifier.present?
       @field = CoreField.find_by_identifier(field_identifier) if field_identifier.present?
       @field = CoreField.create!(:identifier => field_identifier) if @field.nil? && field_identifier.present?
