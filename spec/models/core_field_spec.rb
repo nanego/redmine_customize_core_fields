@@ -4,7 +4,7 @@ describe CoreField do
 
   fixtures :roles, :projects,
            :trackers, :issue_statuses,
-           :issues, :members, :users, :member_roles
+           :issues, :members, :users, :member_roles, :roles
 
   describe 'create and destroy' do
     it 'creates a record for the given core field' do
@@ -79,4 +79,13 @@ describe CoreField do
     end
   end
 
+  describe 'update the table core_fields_roles in case of cascade deleting' do
+    it "when delete a role" do
+      role_test = Role.create!(:name => 'Test')
+      CoreField.create!(identifier: 'project_id', :visible => true, :role_ids => [1, role_test.id])
+      expect(ActiveRecord::Base.connection.execute('select * from core_fields_roles').count).to eq(2)
+      role_test.destroy
+      expect(ActiveRecord::Base.connection.execute('select * from core_fields_roles').count).to eq(1)
+    end
+  end
 end

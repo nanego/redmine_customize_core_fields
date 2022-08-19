@@ -22,4 +22,5 @@ Rails.application.config.to_prepare do
   require_dependency 'redmine_customize_core_fields/issue_patch'
   require_dependency 'redmine_customize_core_fields/journal_patch'
   require_dependency 'redmine_customize_core_fields/query_patch'
+  require_dependency 'redmine_customize_core_fields/role_patch'
 end
