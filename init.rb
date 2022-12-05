@@ -1,3 +1,6 @@
+require 'redmine'
+require_relative 'lib/redmine_customize_core_fields/hooks'
+
 Redmine::Plugin.register :redmine_customize_core_fields do
   name 'Redmine Customize Core Fields plugin'
   author 'Vincent ROBERT'
@@ -15,6 +18,3 @@ Redmine::Plugin.register :redmine_customize_core_fields do
                         'display_custom_fields_first' => 'true'},
            :partial => 'settings/redmine_plugin_customize_core_fields'
 end
-
-# Custom patches
-require_dependency 'redmine_customize_core_fields/hooks'
