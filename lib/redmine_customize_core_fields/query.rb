@@ -9,14 +9,14 @@ module RedmineCustomizeCoreFields
 
     def available_filters
       filters = super
-      disabled_fields = CoreField.not_visible_identifiers(project)
+      disabled_fields = project.present? ? project.disabled_core_fields : []
       filters.reject{|o| name_matches_disabled_fields? disabled_fields, o.to_s }
     end
 
     %i(groupable inline block available_inline available_block available_totalable).each do |prefix|
       define_method "#{prefix}_columns" do
         columns = super()
-        disabled_fields = CoreField.not_visible_identifiers(project)
+        disabled_fields = project.present? ? project.disabled_core_fields : []
         columns.reject{|o| name_matches_disabled_fields? disabled_fields, o.name.to_s }
       end
     end

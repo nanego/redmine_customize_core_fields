@@ -12,6 +12,7 @@ module RedmineCustomizeCoreFields
       require_relative 'journal'
       require_relative 'query'
       require_relative 'role'
+      require_relative 'project'
     end
   end
 end
