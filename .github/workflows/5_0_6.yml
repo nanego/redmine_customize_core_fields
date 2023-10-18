@@ -1,8 +1,8 @@
-name: Tests 4.2.10
+name: Tests 5.0.6
 
 env:
   PLUGIN_NAME: redmine_customize_core_fields
-  REDMINE_VERSION: 4.2.10
+  REDMINE_VERSION: 5.0.6
   RAILS_ENV: test
 
 on:
