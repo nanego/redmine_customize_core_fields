@@ -32,11 +32,11 @@ And finally restart your Redmine instance.
 Test status
 ------------
 
-|Plugin branch| Redmine Version | Test Status       |
-|-------------|-----------------|-------------------|
-|master       | 5.0.6           | [![5.0.6][1]][5]  |  
-|master       | 4.2.11          | [![4.2.11][2]][5] |
-|master       | master          | [![master][4]][5] |
+| Plugin branch | Redmine Version | Test Status       |
+|---------------|-----------------|-------------------|
+| master        | 5.1.11          | [![5.1.11][1]][5] |
+| master        | 4.2.11          | [![4.2.11][2]][5] |
+| master        | master          | [![master][4]][5] |
 
 [1]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/5_0_6.yml/badge.svg
 [2]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/4_2_11.yml/badge.svg
