@@ -18,3 +18,10 @@ Redmine::Plugin.register :redmine_customize_core_fields do
                          'display_custom_fields_first' => 'true' },
            :partial => 'settings/redmine_plugin_customize_core_fields'
 end
+
+# Support for Redmine 5
+if Redmine::VERSION::MAJOR < 6
+  class ApplicationRecord < ActiveRecord::Base
+    self.abstract_class = true
+  end
+end

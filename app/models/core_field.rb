@@ -1,4 +1,4 @@
-class CoreField < ActiveRecord::Base
+class CoreField < ApplicationRecord
   include Redmine::SafeAttributes
 
   has_and_belongs_to_many :roles, :join_table => "core_fields_roles", :foreign_key => "core_field_id"
