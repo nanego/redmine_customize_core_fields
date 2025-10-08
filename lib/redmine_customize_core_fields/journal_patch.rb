@@ -1,16 +1,25 @@
 require_dependency 'journal'
 
+# Store the original method before patching
+Journal.class_eval do
+  alias_method :visible_details_original, :visible_details unless method_defined?(:visible_details_original)
+end
+
 module RedmineCustomizeCoreFields
   module JournalPatch
 
     def visible_details(user = User.current)
-      details = super(user)
-      return details if user.admin? or issue.nil?
+
+      details = visible_details_original(user)
+      return details if user.admin? || issue.nil?
+
       disabled_fields = issue.disabled_core_fields(user)
-      details.reject { |o| disabled_fields.include? o.prop_key }
+      details.reject { |detail|
+        detail.property == 'attr' && disabled_fields.include?(detail.prop_key)
+      }
     end
 
   end
 end
 
-Journal.prepend RedmineCustomizeCoreFields::JournalPatch
+Journal.include RedmineCustomizeCoreFields::JournalPatch
