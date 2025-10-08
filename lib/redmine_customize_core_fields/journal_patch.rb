@@ -1,7 +1,7 @@
 require_dependency 'journal'
 
 module RedmineCustomizeCoreFields
-  module Journal
+  module JournalPatch
 
     def visible_details(user = User.current)
       details = super(user)
@@ -13,4 +13,4 @@ module RedmineCustomizeCoreFields
   end
 end
 
-Journal.prepend RedmineCustomizeCoreFields::Journal
+Journal.prepend RedmineCustomizeCoreFields::JournalPatch

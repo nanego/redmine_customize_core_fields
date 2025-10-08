@@ -1,7 +1,7 @@
 require_dependency 'project'
 
 module RedmineCustomizeCoreFields
-  module Project
+  module ProjectPatch
     def self.included(base)
       base.class_eval do
         attr_accessor :disabled_core_fields
@@ -15,4 +15,4 @@ module RedmineCustomizeCoreFields
   end
 end
 
-Project.send(:include, RedmineCustomizeCoreFields::Project)
+Project.include RedmineCustomizeCoreFields::ProjectPatch

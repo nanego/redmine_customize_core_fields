@@ -8,11 +8,11 @@ module RedmineCustomizeCoreFields
 
   class ModelHook < Redmine::Hook::Listener
     def after_plugins_loaded(_context = {})
-      require_relative 'issue'
-      require_relative 'journal'
-      require_relative 'query'
-      require_relative 'role'
-      require_relative 'project'
+      require_relative 'issue_patch'
+      require_relative 'journal_patch'
+      require_relative 'query_patch'
+      require_relative 'role_patch'
+      require_relative 'project_patch'
     end
   end
 end
