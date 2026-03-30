@@ -34,12 +34,12 @@ Test status
 
 | Plugin branch | Redmine Version | Test Status       |
 |---------------|-----------------|-------------------|
-| master        | 6.1.0           | [![6.1.0][1]][5]  |
-| master        | 6.0.7           | [![6.0.7][2]][5]  |
-| master        | master          | [![master][4]][5] |
+| master        | 6.1.2           | [![6.1.2][1]][5]  |
+| master        | 6.0.9           | [![6.0.9][2]][5]  |
+| master        | master          | [![master][3]][5] |
 
-[1]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/6_1_0.yml/badge.svg
-[2]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/6_0_7.yml/badge.svg
+[1]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/6_1_2.yml/badge.svg
+[2]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/6_0_9.yml/badge.svg
 [3]: https://github.com/nanego/redmine_customize_core_fields/actions/workflows/master.yml/badge.svg
 [5]: https://github.com/nanego/redmine_customize_core_fields/actions
 
