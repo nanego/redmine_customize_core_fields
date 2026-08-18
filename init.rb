@@ -10,7 +10,8 @@ Redmine::Plugin.register :redmine_customize_core_fields do
   author_url 'https://github.com/nanego'
   requires_redmine_plugin :redmine_base_rspec, :version_or_higher => '0.0.4' if Rails.env.test?
   requires_redmine_plugin :redmine_base_deface, :version_or_higher => '0.0.1'
-  menu :admin_menu, :redmine_customize_core_fields, { :controller => 'core_fields', :action => 'index' }, :after => :custom_fields, :caption => :field_core_fields, html: { class: 'icon' }
+  menu :admin_menu, :redmine_customize_core_fields, { :controller => 'core_fields', :action => 'index' }, :after => :custom_fields, :caption => :field_core_fields,
+       icon: 'forms', plugin: 'redmine_customize_core_fields', html: { class: 'icon icon-forms' }
   project_module :customize_core_fields do
     permission :update_core_fields, {}
   end

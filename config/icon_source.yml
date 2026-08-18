@@ -1,0 +1,12 @@
+# This file is used by the icons rake task to download SVG icons from Tabler
+# and build the plugin sprite:
+#
+#   bundle exec rake icons:plugin:generate NAME=redmine_customize_core_fields
+#
+# Keys description:
+#   - name: destination icon name
+#     svg: source icon name from the Tabler repository
+#     style: outline (default) or filled
+
+- name: forms
+  svg: forms
