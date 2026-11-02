@@ -1,8 +1,8 @@
-name: Tests 7.0.2
+name: Tests 6.1.6
 
 env:
   PLUGIN_NAME: redmine_customize_core_fields
-  REDMINE_VERSION: 7.0.2
+  REDMINE_VERSION: 6.1.6
   RAILS_ENV: test
 
 on:
@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby: [ '4.0' ]
+        ruby: ['3.4']
         db: ['postgres']
       fail-fast: false
 
